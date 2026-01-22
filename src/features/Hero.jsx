@@ -141,7 +141,12 @@ const Hero = () => {
             <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl shadow-blue-200/50">
               <img
                 src={heroImg}
-                alt="عيادة أسنان حديثة مع أحدث التجهيزات الطبية في مدينة بدر"
+                alt="عيادة الصفوة الطبية"
+                fetchPriority="high"
+                loading="eager"
+                decoding="sync"
+                width={800}
+                height={600}
                 className="w-full h-[400px] md:h-[600px] object-cover"
               />
               <div
@@ -186,7 +191,7 @@ const Hero = () => {
                 ease: "easeInOut",
                 delay: 0.5,
               }}
-              className="absolute -top-6 -right-6 bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/20 z-20 hidden md:block"
+              className="absolute -top-6 -right-6 bg-white/95 p-6 rounded-2xl shadow-xl border border-white/20 z-20 hidden md:block"
               aria-hidden="true"
             >
               <div className="flex items-center gap-1 mb-1">

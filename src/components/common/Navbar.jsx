@@ -11,8 +11,15 @@ const Navbar = () => {
   const { t } = useLanguage();
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -55,7 +62,7 @@ const Navbar = () => {
       transition={{ duration: 0.5 }}
       className={`fixed w-full z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-white/80 backdrop-blur-lg shadow-lg py-2"
+          ? "bg-white/90 md:bg-white/80 md:backdrop-blur-lg shadow-lg py-2"
           : "bg-transparent py-4 text-gray-900"
       }`}
     >
@@ -166,7 +173,7 @@ const Navbar = () => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="lg:hidden absolute w-full bg-white/95 backdrop-blur-xl border-t border-gray-100 shadow-2xl overflow-hidden"
+            className="lg:hidden absolute w-full bg-white shadow-2xl overflow-hidden"
           >
             <div className="px-6 py-6 space-y-2">
               {navLinks.map((link, idx) => (

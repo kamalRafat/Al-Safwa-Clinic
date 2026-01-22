@@ -12,7 +12,7 @@ const WhyUs = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.05,
       },
     },
   };
@@ -22,7 +22,7 @@ const WhyUs = () => {
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.5 },
+      transition: { duration: 0.3 },
     },
   };
 
@@ -32,8 +32,8 @@ const WhyUs = () => {
         <div className="flex flex-col lg:flex-row items-center gap-16 md:gap-24">
           {/* Image Column */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
-            whileInView={{ opacity: 1, scale: 1, rotate: -3 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="lg:w-5/12 relative"
@@ -43,22 +43,15 @@ const WhyUs = () => {
                 src={img}
                 alt="Dental Consultation"
                 className="w-full h-[500px] object-cover"
+                loading="lazy"
+                width={500}
+                height={500}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
             </div>
 
             {/* Floating Stats */}
-            <motion.div
-              animate={{
-                y: [0, -15, 0],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute -bottom-10 -end-10 bg-white p-8 rounded-3xl shadow-2xl hidden md:block z-20"
-            >
+            <motion.div className="absolute -bottom-10 -end-10 bg-white p-8 rounded-3xl shadow-2xl hidden md:block z-20">
               <div className="flex items-center gap-4 mb-2">
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-primary">
                   <Smile size={32} />
@@ -77,7 +70,7 @@ const WhyUs = () => {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-sm font-bold mb-6 border border-white/20"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-bold mb-6 border border-white/20"
             >
               <ShieldCheck size={18} className="text-white" />
               <span>{t.whyUs.badge}</span>
@@ -87,7 +80,7 @@ const WhyUs = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.1 }}
               className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 leading-tight"
             >
               {t.whyUs.title}
@@ -97,7 +90,7 @@ const WhyUs = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.1 }}
               className="text-xl text-white/80 mb-12 max-w-2xl leading-relaxed font-medium"
             >
               {t.whyUs.desc}
@@ -114,8 +107,7 @@ const WhyUs = () => {
                 <motion.div
                   key={index}
                   variants={itemVariants}
-                  whileHover={{ x: 10 }}
-                  className="group flex items-center gap-4 bg-white/10 hover:bg-white/20 p-5 rounded-2xl transition-all duration-300 border border-white/10 hover:border-white/30 backdrop-blur-sm"
+                  className="group flex items-center gap-4 bg-white/10 hover:bg-white/20 p-5 rounded-2xl transition-all duration-300 border border-white/10 hover:border-white/30"
                 >
                   <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-primary shrink-0 shadow-lg group-hover:scale-110 transition-transform">
                     <CheckCircle2 size={24} />

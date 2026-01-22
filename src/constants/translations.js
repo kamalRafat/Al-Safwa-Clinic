@@ -147,6 +147,7 @@ export const translations = {
           name: "Ahmed Mohammed Ali",
           phone: "010 xxxx xxxx",
           email: "ahmed@example.com",
+          date: "Choose a suitable date",
         },
       },
     },
@@ -410,6 +411,7 @@ export const translations = {
           name: "مثال : أحمد محمد علي",
           phone: "مثال : 01012345678",
           email: "ahmed@example.com",
+          date: "اختار ميعادك المناسب",
         },
       },
     },
@@ -511,7 +513,7 @@ export const translations = {
       emailVal: "info@alsafwa-clinic.com",
       hours: "مواعيدنا",
       hoursDesc:
-        "كل يوم من السبت للخميس: 10 الصبح - 10 بالليل\nيوم الجمعة: أجازة",
+        "كل يوم من السبت للخميس: 10 الصبح - 10 بالليل ",
     },
     footer: {
       rights: "كل الحقوق محفوظة.",

@@ -12,18 +12,17 @@ const GoogleReviews = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.05,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 20 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
-      scale: 1,
       y: 0,
-      transition: { duration: 0.6 },
+      transition: { duration: 0.5 },
     },
   };
 
@@ -34,12 +33,13 @@ const GoogleReviews = () => {
           badge="آراء المرضى"
           title={
             <span className="flex items-center gap-4 justify-center">
-              <motion.img
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 4, repeat: Infinity }}
+              <img
                 src="https://www.vectorlogo.zone/logos/google/google-icon.svg"
                 alt="Google"
                 className="w-10 h-10"
+                width={40}
+                height={40}
+                loading="lazy"
               />
               {t.googleReviews.title}
             </span>
@@ -125,7 +125,7 @@ const GoogleReviews = () => {
           viewport={{ once: true }}
           className="mt-20 text-center"
         > */}
-          {/* <a
+        {/* <a
             href="https://www.google.com/maps"
             target="_blank"
             rel="noopener noreferrer"

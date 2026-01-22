@@ -1,22 +1,28 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { useLanguage } from "../hooks/useLanguage";
 
-// Features
+// Common Components (Keep eager)
+import Navbar from "../components/common/Navbar";
+import Footer from "../components/common/Footer";
 import Hero from "../features/Hero";
 import About from "../features/About";
-import Services from "../features/Services";
-import WhyUs from "../features/WhyUs";
-import Doctor from "../features/Doctor";
-import BeforeAfter from "../features/BeforeAfter";
-import FAQ from "../features/FAQ";
-import GoogleReviews from "../features/GoogleReviews";
-import AppointmentForm from "../components/AppointmentForm";
-
-// Common Components
-import Navbar from "../components/common/Navbar";
-import Contact from "../components/common/Contact";
-import Footer from "../components/common/Footer";
 import SectionHeading from "../components/common/SectionHeading";
+
+// Lazy Loaded Features
+const Services = lazy(() => import("../features/Services"));
+const WhyUs = lazy(() => import("../features/WhyUs"));
+const Doctor = lazy(() => import("../features/Doctor"));
+const BeforeAfter = lazy(() => import("../features/BeforeAfter"));
+const FAQ = lazy(() => import("../features/FAQ"));
+const GoogleReviews = lazy(() => import("../features/GoogleReviews"));
+const AppointmentForm = lazy(() => import("../components/AppointmentForm"));
+const Contact = lazy(() => import("../components/common/Contact"));
+
+const SectionLoader = () => (
+  <div className="w-full h-96 flex items-center justify-center bg-gray-50">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+  </div>
+);
 
 const LandingPage = () => {
   const { t } = useLanguage();
@@ -27,10 +33,22 @@ const LandingPage = () => {
       <main>
         <Hero />
         <About />
-        <WhyUs />
-        <Services />
-        <Doctor />
-        <BeforeAfter />
+
+        <Suspense fallback={<SectionLoader />}>
+          <WhyUs />
+        </Suspense>
+
+        <Suspense fallback={<SectionLoader />}>
+          <Services />
+        </Suspense>
+
+        <Suspense fallback={<SectionLoader />}>
+          <Doctor />
+        </Suspense>
+
+        <Suspense fallback={<SectionLoader />}>
+          <BeforeAfter />
+        </Suspense>
 
         {/* Appointment Section */}
         <section
@@ -45,14 +63,24 @@ const LandingPage = () => {
             />
 
             <div className="max-w-4xl mx-auto">
-              <AppointmentForm />
+              <Suspense fallback={<SectionLoader />}>
+                <AppointmentForm />
+              </Suspense>
             </div>
           </div>
         </section>
 
-        <FAQ />
-        <GoogleReviews />
-        <Contact />
+        <Suspense fallback={<SectionLoader />}>
+          <FAQ />
+        </Suspense>
+
+        <Suspense fallback={<SectionLoader />}>
+          <GoogleReviews />
+        </Suspense>
+
+        <Suspense fallback={<SectionLoader />}>
+          <Contact />
+        </Suspense>
       </main>
       <Footer />
     </div>
