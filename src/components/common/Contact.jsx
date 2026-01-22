@@ -4,7 +4,6 @@ import { useLanguage } from "../../hooks/useLanguage";
 import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
 import { APP_CONFIG } from "../../constants/appConstants";
-
 const Contact = () => {
   const { t } = useLanguage();
 

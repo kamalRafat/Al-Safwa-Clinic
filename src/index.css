@@ -6,9 +6,10 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 100px;
+    overflow-x: hidden;
   }
   body {
-    @apply font-sans antialiased text-gray-800 bg-white;
+    @apply font-sans antialiased text-gray-800 bg-white overflow-x-hidden w-full;
   }
 }
 
