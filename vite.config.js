@@ -18,14 +18,18 @@ export default defineConfig({
     target: "esnext", // Use modern JS features for smaller bundles
     minify: "esbuild", // Faster and effective minification
     cssMinify: true,
+    cssCodeSplit: true,
+    modulePreload: {
+      polyfill: false,
+    },
     sourcemap: false, // Disable sourcemaps in production
     rollupOptions: {
       output: {
         manualChunks: (id) => {
           if (id.includes("node_modules")) {
-            if (id.includes("framer-motion")) return "vendor-framer";
-            if (id.includes("lucide-react")) return "vendor-ui";
-            if (id.includes("react")) return "vendor-react";
+            if (id.includes("framer-motion")) return "vendor-f";
+            if (id.includes("lucide-react")) return "vendor-u";
+            if (id.includes("react")) return "vendor-r";
             return "vendor";
           }
         },

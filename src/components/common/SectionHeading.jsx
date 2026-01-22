@@ -35,4 +35,4 @@ const SectionHeading = ({
   );
 };
 
-export default SectionHeading;
+export default React.memo(SectionHeading);

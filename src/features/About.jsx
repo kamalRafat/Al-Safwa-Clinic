@@ -6,6 +6,14 @@ import SectionHeading from "../components/common/SectionHeading";
 
 const About = () => {
   const { t } = useLanguage();
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const icons = [
     <ShieldCheck size={32} />,
@@ -19,18 +27,18 @@ const About = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: isMobile ? 0 : 0.15,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 20 },
+    hidden: { opacity: 0, scale: 0.9, y: isMobile ? 10 : 20 },
     visible: {
       opacity: 1,
       scale: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.5, ease: "easeOut" },
     },
   };
 
@@ -46,14 +54,16 @@ const About = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: isMobile ? "0px" : "-100px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
           {t.about.features.map((feature, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              whileHover={
+                isMobile ? {} : { y: -10, transition: { duration: 0.3 } }
+              }
               className="group p-10 bg-white rounded-[2.5rem] text-center hover:rounded-3xl hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 border border-transparent hover:border-gray-100 shadow-sm"
             >
               <div className="relative mb-8 inline-block">

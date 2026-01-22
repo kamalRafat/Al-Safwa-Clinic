@@ -6,6 +6,14 @@ import SectionHeading from "../components/common/SectionHeading";
 
 const Doctor = () => {
   const { t } = useLanguage();
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
     <section id="doctors" className="py-20 md:py-32 bg-white relative">
@@ -21,19 +29,25 @@ const Doctor = () => {
             t.doctors.map((doctor, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                initial={{
+                  opacity: 0,
+                  x: isMobile ? 0 : index % 2 === 0 ? -50 : 50,
+                  y: isMobile ? 20 : 0,
+                }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                viewport={{ once: true, margin: isMobile ? "0px" : "-100px" }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
                 className="group bg-white rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 flex flex-col md:flex-row overflow-hidden"
               >
                 {/* Image Container */}
-                <div className="md:w-[45%] relative h-[400px] md:h-auto overflow-hidden">
+                <div className="md:w-[45%] relative h-[300px] md:h-auto overflow-hidden">
                   <img
                     src={doctor.image}
                     alt={doctor.name}
                     loading="lazy"
                     decoding="async"
+                    width={400}
+                    height={500}
                     className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

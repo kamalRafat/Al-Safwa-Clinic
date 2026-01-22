@@ -1,5 +1,5 @@
-import drHelmyImg from "../assets/mhhtyfh.jpg";
-import drFidaaImg from "../assets/34333.jpg";
+import drHelmyImg from "../assets/mhhtyfh.webp";
+import drFidaaImg from "../assets/34333.webp";
 
 export const translations = {
   en: {

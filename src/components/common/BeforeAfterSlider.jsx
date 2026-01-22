@@ -52,10 +52,10 @@ const BeforeAfterSlider = ({ beforeImage, afterImage, label }) => {
 
   useEffect(() => {
     if (isDragging) {
-      window.addEventListener("mousemove", handleMove);
-      window.addEventListener("mouseup", handleMouseUp);
+      window.addEventListener("mousemove", handleMove, { passive: true });
+      window.addEventListener("mouseup", handleMouseUp, { passive: true });
       window.addEventListener("touchmove", handleMove, { passive: true });
-      window.addEventListener("touchend", handleMouseUp);
+      window.addEventListener("touchend", handleMouseUp, { passive: true });
     }
     return () => {
       window.removeEventListener("mousemove", handleMove);

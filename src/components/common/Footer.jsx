@@ -11,7 +11,7 @@ import {
   CalendarCheck,
   ChevronRight,
 } from "lucide-react";
-import logo from "../../assets/logo.jpg";
+import logo from "../../assets/logo.webp";
 import { useLanguage } from "../../hooks/useLanguage";
 import { APP_CONFIG } from "../../constants/appConstants";
 
@@ -31,7 +31,13 @@ const Footer = () => {
           <div className="space-y-8">
             <div className="flex items-center gap-4">
               <div className="bg-white p-2 rounded-2xl">
-                <img src={logo} alt="Logo" className="h-12 w-auto" />
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="h-12 w-auto"
+                  width={48}
+                  height={48}
+                />
               </div>
               <div>
                 <div className="text-2xl font-black tracking-tight leading-none bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
@@ -195,4 +201,4 @@ const ContactListItem = ({ icon, text, href, ...props }) => (
   </li>
 );
 
-export default Footer;
+export default React.memo(Footer);

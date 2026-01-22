@@ -2,23 +2,31 @@ import React from "react";
 import { CheckCircle2, ShieldCheck, Smile } from "lucide-react";
 import { useLanguage } from "../hooks/useLanguage";
 import { motion } from "framer-motion";
-import img from "../assets/ee.jpeg";
+import img from "../assets/ee.webp";
 
 const WhyUs = () => {
   const { t } = useLanguage();
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05,
+        staggerChildren: isMobile ? 0 : 0.05,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: 20 },
+    hidden: { opacity: 0, x: isMobile ? 10 : 20 },
     visible: {
       opacity: 1,
       x: 0,
@@ -42,8 +50,9 @@ const WhyUs = () => {
               <img
                 src={img}
                 alt="Dental Consultation"
-                className="w-full h-[500px] object-cover"
+                className="w-full h-[300px] md:h-[500px] object-cover"
                 loading="lazy"
+                decoding="async"
                 width={500}
                 height={500}
               />
@@ -51,17 +60,19 @@ const WhyUs = () => {
             </div>
 
             {/* Floating Stats */}
-            <motion.div className="absolute -bottom-10 -end-10 bg-white p-8 rounded-3xl shadow-2xl hidden md:block z-20">
-              <div className="flex items-center gap-4 mb-2">
-                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-primary">
-                  <Smile size={32} />
+            {!isMobile && (
+              <motion.div className="absolute -bottom-10 -end-10 bg-white p-8 rounded-3xl shadow-2xl z-20">
+                <div className="flex items-center gap-4 mb-2">
+                  <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-primary">
+                    <Smile size={32} />
+                  </div>
+                  <span className="text-4xl font-black text-gray-900">99%</span>
                 </div>
-                <span className="text-4xl font-black text-gray-900">99%</span>
-              </div>
-              <div className="text-sm font-bold text-gray-500 uppercase tracking-widest">
-                {t.whyUs.patientSatisfaction}
-              </div>
-            </motion.div>
+                <div className="text-sm font-bold text-gray-500 uppercase tracking-widest">
+                  {t.whyUs.patientSatisfaction}
+                </div>
+              </motion.div>
+            )}
           </motion.div>
 
           {/* Content Column */}
@@ -123,4 +134,4 @@ const WhyUs = () => {
   );
 };
 
-export default WhyUs;
+export default React.memo(WhyUs);

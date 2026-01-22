@@ -1,18 +1,27 @@
-import React from "react";
+import React, { memo } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "../hooks/useLanguage";
 import SectionHeading from "../components/common/SectionHeading";
 import BeforeAfterSlider from "../components/common/BeforeAfterSlider";
 
-import case1Before from "../assets/1be.jpg";
-import case1After from "../assets/1af.jpg";
-import case2Before from "../assets/be3.jpeg";
-import case2After from "../assets/af3.jpeg";
-import case3Before from "../assets/be2.jpg";
-import case3After from "../assets/af2.jpg";
+import case1Before from "../assets/1be.webp";
+import case1After from "../assets/1af.webp";
+import case2Before from "../assets/be3.webp";
+import case2After from "../assets/af3.webp";
+import case3Before from "../assets/be2.webp";
+import case3After from "../assets/af2.webp";
 
 const BeforeAfter = () => {
   const { t } = useLanguage();
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const cases = [
     {
       label: "تصميم ابتسامة هوليوود",
@@ -36,18 +45,18 @@ const BeforeAfter = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: isMobile ? 0 : 0.2,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 30 },
+    hidden: { opacity: 0, scale: 0.95, y: isMobile ? 10 : 30 },
     visible: {
       opacity: 1,
       scale: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
+      transition: { duration: 0.6, ease: "easeOut" },
     },
   };
 
@@ -64,7 +73,7 @@ const BeforeAfter = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: isMobile ? "0px" : "-100px" }}
           className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-8 items-start"
         >
           {cases.map((item, index) => (
@@ -82,4 +91,4 @@ const BeforeAfter = () => {
   );
 };
 
-export default BeforeAfter;
+export default memo(BeforeAfter);

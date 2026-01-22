@@ -3,38 +3,48 @@ import { ArrowRight, CheckCircle2, Award, Users, Star } from "lucide-react";
 import { useLanguage } from "../hooks/useLanguage";
 import { motion } from "framer-motion";
 import StatItem from "../components/common/StatItem";
-import heroImg from "../assets/image2.png";
+import heroImg from "../assets/image2.webp";
 import CallButton from "../components/common/CallButton";
 
 const Hero = () => {
   const { t } = useLanguage();
+
+  // Reduced motion preference
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: isMobile ? 10 : 30 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
+      transition: { duration: 0.5, ease: "easeOut" },
     },
   };
 
   const imageVariants = {
-    hidden: { opacity: 0, scale: 0.9, x: 50 },
+    hidden: { opacity: 0, scale: 0.95 },
     visible: {
       opacity: 1,
       scale: 1,
-      x: 0,
-      transition: { duration: 1, ease: "easeOut" },
+      transition: { duration: 0.8, ease: "easeOut" },
     },
   };
 
@@ -46,9 +56,8 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <motion.div
           variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          initial="visible" // Start visible for better LCP
+          animate="visible"
           className="flex flex-col lg:flex-row items-center gap-16"
         >
           {/* Content Column */}
@@ -132,12 +141,11 @@ const Hero = () => {
           {/* Image Column */}
           <motion.div
             variants={imageVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            initial="visible"
+            animate="visible"
             className="lg:w-1/2 relative"
           >
-            <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl shadow-blue-200/50">
+            <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl shadow-blue-200/50 bg-gray-100">
               <img
                 src={heroImg}
                 alt="عيادة الصفوة الطبية"
@@ -146,7 +154,7 @@ const Hero = () => {
                 decoding="async"
                 width={800}
                 height={600}
-                className="w-full h-[400px] md:h-[600px] object-cover"
+                className="w-full h-[300px] md:h-[600px] object-cover"
               />
               <div
                 className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"
@@ -154,57 +162,67 @@ const Hero = () => {
               ></div>
             </div>
 
-            {/* Floating Elements */}
-            <motion.div
-              animate={{
-                y: [0, -20, 0],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-gray-50 z-20 hidden md:block"
-              aria-hidden="true"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center text-accent">
-                  <Award size={24} />
-                </div>
-                <div>
-                  <div className="font-bold text-gray-900">
-                    {t.hero.techTitle}
+            {/* Floating Elements - Disabled on mobile for INP */}
+            {!isMobile && (
+              <>
+                <motion.div
+                  animate={{
+                    y: [0, -20, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-gray-50 z-20"
+                  aria-hidden="true"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center text-accent">
+                      <Award size={24} />
+                    </div>
+                    <div>
+                      <div className="font-bold text-gray-900">
+                        {t.hero.techTitle}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {t.hero.techDesc}
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-xs text-gray-500">{t.hero.techDesc}</div>
-                </div>
-              </div>
-            </motion.div>
+                </motion.div>
 
-            <motion.div
-              animate={{
-                y: [0, 20, 0],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 0.5,
-              }}
-              className="absolute -top-6 -right-6 bg-white/95 p-6 rounded-2xl shadow-xl border border-white/20 z-20 hidden md:block"
-              aria-hidden="true"
-            >
-              <div className="flex items-center gap-1 mb-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    size={14}
-                    className="text-yellow-400 fill-yellow-400"
-                  />
-                ))}
-              </div>
-              <div className="font-bold text-gray-900">{t.hero.ratingText}</div>
-              <div className="text-xs text-gray-500">{t.hero.reviewsCount}</div>
-            </motion.div>
+                <motion.div
+                  animate={{
+                    y: [0, 20, 0],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5,
+                  }}
+                  className="absolute -top-6 -right-6 bg-white/95 p-6 rounded-2xl shadow-xl border border-white/20 z-20"
+                  aria-hidden="true"
+                >
+                  <div className="flex items-center gap-1 mb-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        size={14}
+                        className="text-yellow-400 fill-yellow-400"
+                      />
+                    ))}
+                  </div>
+                  <div className="font-bold text-gray-900">
+                    {t.hero.ratingText}
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {t.hero.reviewsCount}
+                  </div>
+                </motion.div>
+              </>
+            )}
           </motion.div>
         </motion.div>
       </div>

@@ -18,4 +18,4 @@ const StatItem = ({ icon, value, label, className = "" }) => (
   </div>
 );
 
-export default StatItem;
+export default React.memo(StatItem);
