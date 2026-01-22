@@ -4,7 +4,8 @@ export const APP_CONFIG = {
   WHATSAPP: "201096503613+",
   WHATSAPP_URL: "https://wa.me/201096503613",
   EMAIL: "info@alsafwa-clinic.com",
-  LOCATION: "مدينة بدر - الحي الثاني المجاورة الثالثة مول ضيوف الرحمن بجوار السنتر الأحمر، القاهرة، مصر",
+  LOCATION:
+    "مدينة بدر - الحي الثاني المجاورة الثالثة مول ضيوف الرحمن بجوار السنتر الأحمر، القاهرة، مصر",
   WORKING_HOURS: "Sat–Thu: 10AM – 10PM, Friday: Closed",
 };
 

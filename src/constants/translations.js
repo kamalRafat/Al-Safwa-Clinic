@@ -512,8 +512,7 @@ export const translations = {
       email: "الإيميل",
       emailVal: "info@alsafwa-clinic.com",
       hours: "مواعيدنا",
-      hoursDesc:
-        "كل يوم من السبت للخميس: 10 الصبح - 10 بالليل ",
+      hoursDesc: "كل يوم من السبت للخميس: 10 الصبح - 10 بالليل ",
     },
     footer: {
       rights: "كل الحقوق محفوظة.",
