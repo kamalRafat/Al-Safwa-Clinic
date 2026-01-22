@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { ShieldCheck, UserCheck, Zap, Heart, Star } from "lucide-react";
 import { useLanguage } from "../hooks/useLanguage";
 import { motion } from "framer-motion";
@@ -76,4 +76,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default memo(About);

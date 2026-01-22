@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { GraduationCap, Award, Star } from "lucide-react";
 import { useLanguage } from "../hooks/useLanguage";
 import { motion } from "framer-motion";
@@ -32,6 +32,8 @@ const Doctor = () => {
                   <img
                     src={doctor.image}
                     alt={doctor.name}
+                    loading="lazy"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -102,4 +104,4 @@ const Doctor = () => {
   );
 };
 
-export default Doctor;
+export default memo(Doctor);

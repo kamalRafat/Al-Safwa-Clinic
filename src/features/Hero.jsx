@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { ArrowRight, CheckCircle2, Award, Users, Star } from "lucide-react";
 import { useLanguage } from "../hooks/useLanguage";
 import { motion } from "framer-motion";
@@ -8,7 +8,6 @@ import CallButton from "../components/common/CallButton";
 
 const Hero = () => {
   const { t } = useLanguage();
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -144,7 +143,7 @@ const Hero = () => {
                 alt="عيادة الصفوة الطبية"
                 fetchPriority="high"
                 loading="eager"
-                decoding="sync"
+                decoding="async"
                 width={800}
                 height={600}
                 className="w-full h-[400px] md:h-[600px] object-cover"
@@ -213,4 +212,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default memo(Hero);

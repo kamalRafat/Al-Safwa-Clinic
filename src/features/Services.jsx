@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   Sparkles,
   Anchor,
@@ -91,4 +91,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default memo(Services);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { Menu, X, Calendar } from "lucide-react";
 import logo from "../../assets/logo.jpg";
 import { useLanguage } from "../../hooks/useLanguage";
@@ -15,31 +15,23 @@ const Navbar = () => {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 20);
+          const isScrolled = window.scrollY > 20;
+          setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
           ticking = false;
         });
         ticking = true;
       }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: t.nav.home, href: "#home" },
-    { name: t.nav.services, href: "#services" },
-    { name: t.nav.about, href: "#about" },
-    { name: t.nav.faq, href: "#faq" },
-    { name: t.nav.reviews, href: "#reviews" },
-    { name: t.nav.contact, href: "#contact" },
-  ];
-
-  const handleNavClick = (e, href) => {
+  const handleNavClick = useCallback((e, href) => {
     e.preventDefault();
     setIsOpen(false);
 
-    // Delay scrolling slightly to allow menu to close first
-    setTimeout(() => {
+    // Use requestAnimationFrame for smoother transition
+    requestAnimationFrame(() => {
       const element = document.querySelector(href);
       if (element) {
         const offset = 100;
@@ -52,8 +44,20 @@ const Navbar = () => {
           behavior: "smooth",
         });
       }
-    }, 100);
-  };
+    });
+  }, []);
+
+  const navLinks = React.useMemo(
+    () => [
+      { name: t.nav.home, href: "#home" },
+      { name: t.nav.services, href: "#services" },
+      { name: t.nav.about, href: "#about" },
+      { name: t.nav.faq, href: "#faq" },
+      { name: t.nav.reviews, href: "#reviews" },
+      { name: t.nav.contact, href: "#contact" },
+    ],
+    [t.nav],
+  );
 
   return (
     <motion.nav
@@ -212,4 +216,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

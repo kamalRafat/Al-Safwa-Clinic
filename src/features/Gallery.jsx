@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Maximize2, Camera } from "lucide-react";
 import { useLanguage } from "../hooks/useLanguage";
 import { motion } from "framer-motion";
@@ -60,6 +60,8 @@ const Gallery = () => {
               <img
                 src={img.url}
                 alt={img.alt}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
 
@@ -81,4 +83,4 @@ const Gallery = () => {
   );
 };
 
-export default Gallery;
+export default memo(Gallery);

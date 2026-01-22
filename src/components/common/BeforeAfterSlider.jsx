@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback, memo } from "react";
 import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { useLanguage } from "../../hooks/useLanguage";
 
@@ -8,38 +8,53 @@ const BeforeAfterSlider = ({ beforeImage, afterImage, label }) => {
   const [containerWidth, setContainerWidth] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
+  const requestRef = useRef();
 
   useEffect(() => {
-    if (containerRef.current) {
-      setContainerWidth(containerRef.current.offsetWidth);
-    }
-    const handleResize = () => {
+    const updateWidth = () => {
       if (containerRef.current) {
         setContainerWidth(containerRef.current.offsetWidth);
       }
     };
+
+    updateWidth();
+
+    let debounceTimer;
+    const handleResize = () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(updateWidth, 200);
+    };
+
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(debounceTimer);
+    };
   }, []);
 
-  const handleMove = (event) => {
+  const handleMove = useCallback((event) => {
     if (!containerRef.current) return;
 
-    const containerRect = containerRef.current.getBoundingClientRect();
-    const x = "touches" in event ? event.touches[0].clientX : event.clientX;
-    const position = ((x - containerRect.left) / containerRect.width) * 100;
+    if (requestRef.current) return;
 
-    setSliderPosition(Math.min(Math.max(position, 0), 100));
-  };
+    requestRef.current = requestAnimationFrame(() => {
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const x = "touches" in event ? event.touches[0].clientX : event.clientX;
+      const position = ((x - containerRect.left) / containerRect.width) * 100;
 
-  const handleMouseDown = () => setIsDragging(true);
-  const handleMouseUp = () => setIsDragging(false);
+      setSliderPosition(Math.min(Math.max(position, 0), 100));
+      requestRef.current = null;
+    });
+  }, []);
+
+  const handleMouseDown = useCallback(() => setIsDragging(true), []);
+  const handleMouseUp = useCallback(() => setIsDragging(false), []);
 
   useEffect(() => {
     if (isDragging) {
       window.addEventListener("mousemove", handleMove);
       window.addEventListener("mouseup", handleMouseUp);
-      window.addEventListener("touchmove", handleMove);
+      window.addEventListener("touchmove", handleMove, { passive: true });
       window.addEventListener("touchend", handleMouseUp);
     }
     return () => {
@@ -47,8 +62,9 @@ const BeforeAfterSlider = ({ beforeImage, afterImage, label }) => {
       window.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("touchmove", handleMove);
       window.removeEventListener("touchend", handleMouseUp);
+      if (requestRef.current) cancelAnimationFrame(requestRef.current);
     };
-  }, [isDragging]);
+  }, [isDragging, handleMove, handleMouseUp]);
 
   const handleKeyDown = (e) => {
     switch (e.key) {
@@ -88,6 +104,8 @@ const BeforeAfterSlider = ({ beforeImage, afterImage, label }) => {
         <img
           src={afterImage}
           alt={`After: ${label}`}
+          loading="lazy"
+          decoding="async"
           className="absolute top-0 left-0 w-full h-full object-cover"
         />
         <div
@@ -97,6 +115,8 @@ const BeforeAfterSlider = ({ beforeImage, afterImage, label }) => {
           <img
             src={beforeImage}
             alt={`Before: ${label}`}
+            loading="lazy"
+            decoding="async"
             className="absolute top-0 left-0 max-w-none h-full object-cover"
             style={{ width: `${containerWidth}px` }}
           />
@@ -142,4 +162,4 @@ const BeforeAfterSlider = ({ beforeImage, afterImage, label }) => {
   );
 };
 
-export default BeforeAfterSlider;
+export default memo(BeforeAfterSlider);

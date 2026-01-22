@@ -13,10 +13,13 @@ export const LanguageProvider = ({ children }) => {
 
   const t = translations[language];
 
-  const value = {
-    language,
-    t,
-  };
+  const value = React.useMemo(
+    () => ({
+      language,
+      t,
+    }),
+    [language, t],
+  );
 
   return (
     <LanguageContext.Provider value={value}>
