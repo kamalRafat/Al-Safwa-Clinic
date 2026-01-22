@@ -63,7 +63,7 @@ const Footer = () => {
           <div>
             <h4 className="text-xl font-black mb-8 relative inline-block">
               {t.footer.quickLinks}
-              <span className="absolute -bottom-2 left-0 w-8 h-1 bg-gradient-to-r from-primary to-accent rounded-full" />
+              <span className="absolute -bottom-2 right-0 w-8 h-1 bg-gradient-to-r from-primary to-accent rounded-full" />
             </h4>
             <ul className="space-y-4">
               <FooterLink href="#home">{t.nav.home}</FooterLink>
@@ -79,7 +79,7 @@ const Footer = () => {
           <div>
             <h4 className="text-xl font-black mb-8 relative inline-block">
               {t.footer.contactInfo}
-              <span className="absolute -bottom-2 left-0 w-8 h-1 bg-gradient-to-r from-primary to-accent rounded-full" />
+              <span className="absolute -bottom-2 right-0 w-8 h-1 bg-gradient-to-r from-primary to-accent rounded-full" />
             </h4>
             <ul className="space-y-6">
               <ContactListItem

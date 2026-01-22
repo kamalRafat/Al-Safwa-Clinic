@@ -27,8 +27,8 @@ const LandingPage = () => {
       <main>
         <Hero />
         <About />
-        <Services />
         <WhyUs />
+        <Services />
         <Doctor />
         <BeforeAfter />
 

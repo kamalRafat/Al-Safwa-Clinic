@@ -25,7 +25,7 @@ const BeforeAfter = () => {
       after: case2After,
     },
     {
-      label: "تبييض الأسنان بالليزر",
+      label: "تبييض الأسنان",
       before: case3Before,
       after: case3After,
     },
@@ -52,7 +52,7 @@ const BeforeAfter = () => {
   };
 
   return (
-    <section id="results" className="py-20 md:py-32 bg-slate-50">
+    <section id="results" className="py-20 md:py-32 bg-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge={t.common.resultsBadge}

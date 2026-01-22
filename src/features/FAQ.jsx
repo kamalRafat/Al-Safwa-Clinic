@@ -32,7 +32,7 @@ const FAQ = () => {
   };
 
   return (
-    <section id="faq" className="py-20 md:py-32 bg-slate-50 relative">
+    <section id="faq" className="py-20 md:py-32 bg-slate-100 relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center mb-6">
           <motion.div
@@ -60,7 +60,7 @@ const FAQ = () => {
               className={`group border rounded-[2rem] transition-all duration-500 overflow-hidden ${
                 openIndex === index
                   ? "border-primary/30 shadow-2xl shadow-primary/10 bg-white"
-                  : "border-gray-100 bg-gray-50/50 hover:bg-white hover:border-gray-200"
+                  : "border-gray-100 bg-white hover:bg-white hover:border-gray-200"
               }`}
             >
               <button
