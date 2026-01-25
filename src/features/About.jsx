@@ -43,10 +43,7 @@ const About = () => {
   };
 
   return (
-    <section
-      id="about"
-      className="py-20 md:py-32 bg-slate-100 overflow-hidden relative"
-    >
+    <section className="py-20 md:py-32 bg-slate-100 overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <SectionHeading title={t.about.title} badge={t.about.yearsExcellence} />
 
@@ -80,7 +77,7 @@ const About = () => {
               </p>
             </motion.div>
           ))}
-        </motion.div>
+          </motion.div>
       </div>
     </section>
   );

@@ -8,7 +8,6 @@ const BeforeAfterSlider = ({ beforeImage, afterImage, label }) => {
   const [containerWidth, setContainerWidth] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
-  const requestRef = useRef();
 
   useEffect(() => {
     const updateWidth = () => {
@@ -35,36 +34,52 @@ const BeforeAfterSlider = ({ beforeImage, afterImage, label }) => {
   const handleMove = useCallback((event) => {
     if (!containerRef.current) return;
 
-    if (requestRef.current) return;
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const clientX =
+      event.type === "touchmove" || event.type === "touchstart"
+        ? event.touches[0].clientX
+        : event.clientX;
 
-    requestRef.current = requestAnimationFrame(() => {
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const x = "touches" in event ? event.touches[0].clientX : event.clientX;
-      const position = ((x - containerRect.left) / containerRect.width) * 100;
+    const position =
+      ((clientX - containerRect.left) / containerRect.width) * 100;
 
-      setSliderPosition(Math.min(Math.max(position, 0), 100));
-      requestRef.current = null;
-    });
+    setSliderPosition(Math.min(Math.max(position, 0), 100));
   }, []);
 
-  const handleMouseDown = useCallback(() => setIsDragging(true), []);
+  const onTouchMove = useCallback(
+    (e) => {
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+      handleMove(e);
+    },
+    [handleMove],
+  );
+
+  const handleMouseDown = useCallback(
+    (e) => {
+      setIsDragging(true);
+      handleMove(e);
+    },
+    [handleMove],
+  );
+
   const handleMouseUp = useCallback(() => setIsDragging(false), []);
 
   useEffect(() => {
     if (isDragging) {
-      window.addEventListener("mousemove", handleMove, { passive: true });
-      window.addEventListener("mouseup", handleMouseUp, { passive: true });
-      window.addEventListener("touchmove", handleMove, { passive: true });
-      window.addEventListener("touchend", handleMouseUp, { passive: true });
+      window.addEventListener("mousemove", handleMove);
+      window.addEventListener("mouseup", handleMouseUp);
+      window.addEventListener("touchmove", onTouchMove, { passive: false });
+      window.addEventListener("touchend", handleMouseUp);
     }
     return () => {
       window.removeEventListener("mousemove", handleMove);
       window.removeEventListener("mouseup", handleMouseUp);
-      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("touchend", handleMouseUp);
-      if (requestRef.current) cancelAnimationFrame(requestRef.current);
     };
-  }, [isDragging, handleMove, handleMouseUp]);
+  }, [isDragging, handleMove, onTouchMove, handleMouseUp]);
 
   const handleKeyDown = (e) => {
     switch (e.key) {
@@ -89,7 +104,7 @@ const BeforeAfterSlider = ({ beforeImage, afterImage, label }) => {
     <div className="flex flex-col items-center group/slider">
       <div
         ref={containerRef}
-        className="relative w-full max-w-lg aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl cursor-col-resize select-none border-8 border-white transition-transform duration-500 group-hover/slider:scale-[1.02] focus:ring-4 focus:ring-primary/20 outline-none"
+        className="relative w-full max-w-lg aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl cursor-col-resize select-none border-8 border-white transition-transform duration-500 group-hover/slider:scale-[1.02] focus:ring-4 focus:ring-primary/20 outline-none touch-none"
         onMouseDown={handleMouseDown}
         onTouchStart={handleMouseDown}
         onClick={handleMove}

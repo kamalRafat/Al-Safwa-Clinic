@@ -27,10 +27,7 @@ const Contact = () => {
   };
 
   return (
-    <section
-      id="contact"
-      className="py-20 md:py-32 bg-slate-100 relative overflow-hidden"
-    >
+    <section className="py-20 md:py-32 bg-slate-100 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="تواصل معنا"
@@ -52,6 +49,7 @@ const Contact = () => {
               icon={<MapPin size={24} />}
               title={t.contact.location}
               desc={APP_CONFIG.LOCATION}
+              href="https://maps.app.goo.gl/fUST86ci4CLxFbkF6" // Google Maps link
               color="bg-blue-50 text-blue-600"
             />
             <ContactCard
@@ -107,35 +105,46 @@ const Contact = () => {
   );
 };
 
-const ContactCard = ({ icon, title, desc, color, ltr, href, variants }) => (
-  <motion.div
-    variants={variants}
-    className="group bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100/50 hover:-translate-y-1"
-  >
-    <div
-      className={`w-14 h-14 ${color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}
-      aria-hidden="true"
-    >
-      {icon}
-    </div>
-    <h4 className="text-xl font-black text-gray-900 mb-3 group-hover:text-primary transition-colors">
-      {title}
-    </h4>
-    <div
-      className={`text-gray-500 font-medium leading-relaxed ${
-        ltr ? "ltr text-start" : ""
-      }`}
-    >
-      {/* {desc} */}
-    </div>
-    {href ? (
-      <a href={href} className="hover:text-primary transition-colors">
+const ContactCard = ({ icon, title, desc, color, ltr, href, variants }) => {
+  const CardContent = (
+    <>
+      <div
+        className={`w-14 h-14 ${color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}
+        aria-hidden="true"
+      >
+        {icon}
+      </div>
+      <h4 className="text-xl font-black text-gray-900 mb-3 group-hover:text-primary transition-colors">
+        {title}
+      </h4>
+      <div
+        className={`text-gray-500 font-medium leading-relaxed pt-1 ${
+          ltr ? "ltr text-start" : ""
+        }`}
+      >
         {desc}
-      </a>
-    ) : (
-      <span className="pt-1">{desc}</span>
-    )}
-  </motion.div>
-);
+      </div>
+    </>
+  );
+
+  return (
+    <motion.div variants={variants}>
+      {href ? (
+        <a
+          href={href}
+          target={href.startsWith("http") ? "_blank" : undefined}
+          rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+          className="group block h-full bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100/50 hover:-translate-y-1"
+        >
+          {CardContent}
+        </a>
+      ) : (
+        <div className="group h-full bg-white p-8 rounded-[2rem] shadow-sm transition-all duration-500 border border-gray-100/50">
+          {CardContent}
+        </div>
+      )}
+    </motion.div>
+  );
+};
 
 export default Contact;

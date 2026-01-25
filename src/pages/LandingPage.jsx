@@ -26,7 +26,7 @@ const SectionLoader = () => (
 );
 
 // High-performance Intersection Observer wrapper
-const LazySection = ({ children }) => {
+const LazySection = ({ children, id }) => {
   const [isVisible, setIsVisible] = React.useState(false);
   const ref = React.useRef(null);
 
@@ -46,7 +46,7 @@ const LazySection = ({ children }) => {
   }, []);
 
   return (
-    <div ref={ref} className="min-h-[200px]">
+    <div ref={ref} id={id} className="min-h-[200px]">
       {isVisible ? children : <SectionLoader />}
     </div>
   );
@@ -62,7 +62,7 @@ const LandingPage = () => {
         <Hero />
 
         <Suspense fallback={<SectionLoader />}>
-          <LazySection>
+          <LazySection id="about">
             <About />
           </LazySection>
         </Suspense>
@@ -74,7 +74,7 @@ const LandingPage = () => {
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
-          <LazySection>
+          <LazySection id="services">
             <Services />
           </LazySection>
         </Suspense>
@@ -92,11 +92,8 @@ const LandingPage = () => {
         </Suspense>
 
         {/* Appointment Section */}
-        <LazySection>
-          <section
-            id="appointment"
-            className="py-20 md:py-32 bg-white relative overflow-hidden"
-          >
+        <LazySection id="appointment">
+          <section className="py-20 md:py-32 bg-white relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <SectionHeading
                 badge="الخطوة الأولى لابتسامة أفضل"
@@ -114,19 +111,19 @@ const LandingPage = () => {
         </LazySection>
 
         <Suspense fallback={<SectionLoader />}>
-          <LazySection>
+          <LazySection id="faq">
             <FAQ />
           </LazySection>
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
-          <LazySection>
+          <LazySection id="reviews">
             <GoogleReviews />
           </LazySection>
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
-          <LazySection>
+          <LazySection id="contact">
             <Contact />
           </LazySection>
         </Suspense>

@@ -27,24 +27,28 @@ const Navbar = () => {
   }, []);
 
   const handleNavClick = useCallback((e, href) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     setIsOpen(false);
 
-    // Use requestAnimationFrame for smoother transition
-    requestAnimationFrame(() => {
+    // Slight delay to allow the menu close animation to start
+    // and ensure the click event is fully processed on mobile.
+    setTimeout(() => {
       const element = document.querySelector(href);
       if (element) {
-        const offset = 100;
+        const offset = 80;
         const elementPosition =
-          element.getBoundingClientRect().top + window.scrollY;
+          element.getBoundingClientRect().top + window.pageYOffset;
         const offsetPosition = elementPosition - offset;
 
         window.scrollTo({
           top: offsetPosition,
           behavior: "smooth",
         });
+
+        // Update URL without jump
+        window.history.pushState(null, null, href);
       }
-    });
+    }, 150);
   }, []);
 
   const navLinks = React.useMemo(
