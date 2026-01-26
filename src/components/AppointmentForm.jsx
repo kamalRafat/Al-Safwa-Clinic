@@ -9,10 +9,9 @@ import {
   CalendarCheck,
 } from "lucide-react";
 import { useAppointmentForm } from "../hooks/useAppointmentForm";
-import { useLanguage } from "../hooks/useLanguage";
+import { content as t } from "../constants/content";
 
 const AppointmentForm = () => {
-  const { t } = useLanguage();
   const { formData, errors, isSubmitting, handleChange, handleSubmit } =
     useAppointmentForm();
 

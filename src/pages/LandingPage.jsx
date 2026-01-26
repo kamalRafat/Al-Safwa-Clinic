@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { useLanguage } from "../hooks/useLanguage";
+import { content as t } from "../constants/content";
 
 // Common Components (Keep eager)
 import Navbar from "../components/common/Navbar";
@@ -53,8 +53,6 @@ const LazySection = ({ children, id }) => {
 };
 
 const LandingPage = () => {
-  const { t } = useLanguage();
-
   return (
     <div className="min-h-screen bg-white">
       <Navbar />

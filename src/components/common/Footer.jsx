@@ -1,29 +1,35 @@
 import React from "react";
 import {
   Facebook,
-  Twitter,
   Instagram,
-  Linkedin,
-  Heart,
   MapPin,
   Phone,
-  Mail,
   CalendarCheck,
   ChevronRight,
 } from "lucide-react";
 import logo from "../../assets/logo.webp";
-import { useLanguage } from "../../hooks/useLanguage";
+import { content as t } from "../../constants/content";
 import { APP_CONFIG } from "../../constants/appConstants";
 
 const Footer = () => {
-  const { t } = useLanguage();
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <footer className="relative bg-[#0F172A] text-white pt-24 pb-12 overflow-hidden">
-      {/* Background Decorative Blobs */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary/30 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-[100px]"></div>
-      </div>
+      {/* Background Decorative Blobs - Desktop Only */}
+      {!isMobile && (
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary/30 rounded-full blur-[100px]"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-[100px]"></div>
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">

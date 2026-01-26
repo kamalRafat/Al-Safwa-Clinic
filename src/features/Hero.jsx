@@ -1,14 +1,12 @@
 import React, { memo } from "react";
 import { ArrowRight, CheckCircle2, Award, Users, Star } from "lucide-react";
-import { useLanguage } from "../hooks/useLanguage";
+import { content as t } from "../constants/content";
 import { motion } from "framer-motion";
 import StatItem from "../components/common/StatItem";
 import heroImg from "../assets/image2.webp";
 import CallButton from "../components/common/CallButton";
 
 const Hero = () => {
-  const { t } = useLanguage();
-
   // Reduced motion preference
   const [isMobile, setIsMobile] = React.useState(false);
 
@@ -24,8 +22,8 @@ const Hero = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.1,
+        staggerChildren: isMobile ? 0 : 0.1,
+        delayChildren: isMobile ? 0 : 0.1,
       },
     },
   };

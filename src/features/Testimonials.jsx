@@ -1,11 +1,9 @@
 import React from "react";
 import { Star } from "lucide-react";
-import { useLanguage } from "../hooks/useLanguage";
+import { content as t } from "../constants/content";
 import SectionHeading from "../components/common/SectionHeading";
 
 const Testimonials = () => {
-  const { t } = useLanguage();
-
   const reviews = [
     {
       name: "أمل ر.",

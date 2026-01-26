@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
 import { Menu, X, Calendar } from "lucide-react";
 import logo from "../../assets/logo.jpg";
-import { useLanguage } from "../../hooks/useLanguage";
+import { content as t } from "../../constants/content";
 import { motion, AnimatePresence } from "framer-motion";
 import CallButton from "./CallButton";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { t } = useLanguage();
 
   useEffect(() => {
     let ticking = false;
@@ -60,7 +59,7 @@ const Navbar = () => {
       { name: t.nav.reviews, href: "#reviews" },
       { name: t.nav.contact, href: "#contact" },
     ],
-    [t.nav],
+    [],
   );
 
   return (
@@ -68,9 +67,9 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed w-full z-50 transition-all duration-500 ${
+      className={`fixed w-full z-50 transition-[padding,background-color,box-shadow] duration-500 ${
         scrolled
-          ? "bg-white/90 md:bg-white/80 md:backdrop-blur-lg shadow-lg py-2"
+          ? "bg-white/95 md:bg-white/80 md:backdrop-blur-lg shadow-lg py-2"
           : "bg-transparent py-4 text-gray-900"
       }`}
     >
@@ -180,27 +179,27 @@ const Navbar = () => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="lg:hidden absolute w-full bg-white shadow-2xl overflow-hidden"
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="lg:hidden absolute w-full bg-white shadow-2xl overflow-hidden will-change-[height,opacity]"
           >
             <div className="px-6 py-6 space-y-2">
               {navLinks.map((link, idx) => (
                 <motion.a
                   key={link.name}
-                  initial={{ x: -20, opacity: 0 }}
+                  initial={{ x: -10, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: idx * 0.05 }}
+                  transition={{ delay: idx * 0.03 }} // Reduced stagger for faster mobile feel
                   href={link.href}
-                  className="block px-4 py-4 text-lg font-bold text-gray-700 hover:text-primary hover:bg-primary/5 rounded-2xl transition-all"
+                  className="block px-4 py-4 text-lg font-bold text-gray-700 hover:text-primary hover:bg-primary/5 rounded-2xl transition-[color,background-color] duration-200"
                   onClick={(e) => handleNavClick(e, link.href)}
                 >
                   {link.name}
                 </motion.a>
               ))}
               <motion.div
-                initial={{ y: 20, opacity: 0 }}
+                initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3 }}
+                transition={{ delay: 0.2 }}
                 className="pt-6 border-t border-gray-100 mt-4"
               >
                 <a

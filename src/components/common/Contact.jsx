@@ -1,12 +1,10 @@
 import React from "react";
 import { MapPin, Phone, MessageCircle, Clock } from "lucide-react";
-import { useLanguage } from "../../hooks/useLanguage";
+import { content as t } from "../../constants/content";
 import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
 import { APP_CONFIG } from "../../constants/appConstants";
 const Contact = () => {
-  const { t } = useLanguage();
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

@@ -1,11 +1,10 @@
 import React, { memo } from "react";
 import { Star } from "lucide-react";
-import { useLanguage } from "../hooks/useLanguage";
+import { content as t } from "../constants/content";
 import { motion } from "framer-motion";
 import SectionHeading from "../components/common/SectionHeading";
 
 const GoogleReviews = () => {
-  const { t } = useLanguage();
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
@@ -101,7 +100,7 @@ const GoogleReviews = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="bg-slate-50 p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-gray-100 hover:bg-white hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group"
+              className="bg-slate-50 p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-gray-100 hover:bg-white hover:shadow-2xl hover:shadow-primary/10 transition-[background-color,box-shadow,transform] duration-500 group"
             >
               <div className="flex items-center gap-4 mb-8">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-black text-xl shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">

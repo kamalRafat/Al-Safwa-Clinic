@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback, memo } from "react";
 import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
-import { useLanguage } from "../../hooks/useLanguage";
+import { content as t } from "../../constants/content";
 
 const BeforeAfterSlider = ({ beforeImage, afterImage, label }) => {
-  const { t } = useLanguage();
   const [sliderPosition, setSliderPosition] = useState(50);
   const [containerWidth, setContainerWidth] = useState(0);
   const [isDragging, setIsDragging] = useState(false);

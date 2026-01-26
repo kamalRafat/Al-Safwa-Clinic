@@ -1,9 +1,8 @@
 import React, { memo } from "react";
 import { motion } from "framer-motion";
-import { useLanguage } from "../hooks/useLanguage";
+import { content as t } from "../constants/content";
 import SectionHeading from "../components/common/SectionHeading";
 import BeforeAfterSlider from "../components/common/BeforeAfterSlider";
-
 import case1Before from "../assets/1be.webp";
 import case1After from "../assets/1af.webp";
 import case2Before from "../assets/be3.webp";
@@ -12,7 +11,6 @@ import case3Before from "../assets/be2.webp";
 import case3After from "../assets/af2.webp";
 
 const BeforeAfter = () => {
-  const { t } = useLanguage();
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {

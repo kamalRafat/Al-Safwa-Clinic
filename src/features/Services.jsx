@@ -8,12 +8,11 @@ import {
   Baby,
   ChevronRight,
 } from "lucide-react";
-import { useLanguage } from "../hooks/useLanguage";
+import { content as t } from "../constants/content";
 import { motion } from "framer-motion";
 import SectionHeading from "../components/common/SectionHeading";
 
 const Services = () => {
-  const { t } = useLanguage();
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
@@ -72,7 +71,7 @@ const Services = () => {
               key={index}
               variants={itemVariants}
               whileHover={isMobile ? {} : { y: -5 }} // Disable hover on mobile to prevent accidental triggers
-              className="group relative bg-white p-10 rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 flex flex-col items-center text-center overflow-hidden"
+              className="group relative bg-white p-10 rounded-3xl shadow-sm hover:shadow-2xl transition-[transform,box-shadow,background-color] duration-500 border border-gray-100 flex flex-col items-center text-center overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
 

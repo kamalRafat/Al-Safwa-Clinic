@@ -1,11 +1,10 @@
 import React, { memo } from "react";
 import { Maximize2, Camera } from "lucide-react";
-import { useLanguage } from "../hooks/useLanguage";
+import { content as t } from "../constants/content";
 import { motion } from "framer-motion";
 import SectionHeading from "../components/common/SectionHeading";
 
 const Gallery = () => {
-  const { t } = useLanguage();
   const galleryImages = t.gallery.images || [];
   const [isMobile, setIsMobile] = React.useState(false);
 
@@ -63,7 +62,7 @@ const Gallery = () => {
               key={index}
               variants={itemVariants}
               whileHover={isMobile ? {} : { y: -10 }}
-              className="group relative h-80 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-700 border-4 border-white"
+              className="group relative h-80 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-[transform,box-shadow] duration-700 border-4 border-white"
             >
               <img
                 src={img.url}

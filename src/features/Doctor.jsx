@@ -1,11 +1,10 @@
 import React, { memo } from "react";
 import { GraduationCap, Award, Star } from "lucide-react";
-import { useLanguage } from "../hooks/useLanguage";
+import { content as t } from "../constants/content";
 import { motion } from "framer-motion";
 import SectionHeading from "../components/common/SectionHeading";
 
 const Doctor = () => {
-  const { t } = useLanguage();
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
@@ -37,7 +36,7 @@ const Doctor = () => {
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: true, margin: isMobile ? "0px" : "-100px" }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="group bg-white rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 flex flex-col md:flex-row overflow-hidden"
+                className="group bg-white rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-[transform,box-shadow,border-color] duration-500 border border-gray-100 flex flex-col md:flex-row overflow-hidden"
               >
                 {/* Image Container */}
                 <div className="md:w-[45%] relative h-[300px] md:h-auto overflow-hidden">

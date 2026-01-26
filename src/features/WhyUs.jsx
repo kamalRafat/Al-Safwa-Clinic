@@ -1,11 +1,10 @@
 import React from "react";
 import { CheckCircle2, ShieldCheck, Smile } from "lucide-react";
-import { useLanguage } from "../hooks/useLanguage";
+import { content as t } from "../constants/content";
 import { motion } from "framer-motion";
 import img from "../assets/ee.webp";
 
 const WhyUs = () => {
-  const { t } = useLanguage();
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {

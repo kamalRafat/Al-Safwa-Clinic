@@ -1,11 +1,10 @@
 import React, { memo } from "react";
 import { ShieldCheck, UserCheck, Zap, Heart, Star } from "lucide-react";
-import { useLanguage } from "../hooks/useLanguage";
+import { content as t } from "../constants/content";
 import { motion } from "framer-motion";
 import SectionHeading from "../components/common/SectionHeading";
 
 const About = () => {
-  const { t } = useLanguage();
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
@@ -61,7 +60,7 @@ const About = () => {
               whileHover={
                 isMobile ? {} : { y: -10, transition: { duration: 0.3 } }
               }
-              className="group p-10 bg-white rounded-[2.5rem] text-center hover:rounded-3xl hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 border border-transparent hover:border-gray-100 shadow-sm"
+              className="group p-10 bg-white rounded-[2.5rem] text-center hover:rounded-3xl hover:shadow-2xl hover:shadow-primary/10 transition-[transform,background-color,border-color,box-shadow,border-radius] duration-500 border border-transparent hover:border-gray-100 shadow-sm"
             >
               <div className="relative mb-8 inline-block">
                 <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl group-hover:scale-150 transition-transform duration-500"></div>
@@ -77,7 +76,7 @@ const About = () => {
               </p>
             </motion.div>
           ))}
-          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
